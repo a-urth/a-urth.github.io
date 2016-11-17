@@ -7,15 +7,93 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://a-urth.github.io/about&#34;&gt;Andrii Ursulenko&lt;/a&gt; 2016</copyright>
-    <lastBuildDate>Wed, 16 Nov 2016 12:07:39 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 17 Nov 2016 18:05:25 +0200</lastBuildDate>
     <atom:link href="https://a-urth.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Daily programmer (easy Monday)</title>
+      <link>https://a-urth.github.io/post/2016/11/daily-programmer-easy/</link>
+      <pubDate>Thu, 17 Nov 2016 18:05:25 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/2016/11/daily-programmer-easy/</guid>
+      <description>
+
+&lt;p&gt;Since this is first post on daily-programmer topic I need some introduction.
+So there is this awesome sub reddit called &lt;a href=&#34;http://reddit.com/r/dailyprogrammer/&#34;&gt;DailyProgrammer&lt;/a&gt; where programming tasks on algorithms are posted 3 times a week. Easy ones on Mondays, intermedium ones on Tuesdays and hard ones on Friday. You can post Your solutions in favorite language and compile and test them directly in the comment section with &lt;code&gt;/u/CompileBot&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve been aware about this thing for already quite some time but never was able to stick with it for too long. Actually my last try lasted only for one easy task, which is hilarious, I know.&lt;/p&gt;
+
+&lt;p&gt;And as You&amp;rsquo;ve already may guessed, since I&amp;rsquo;m some what trying to get closer to &lt;a href=&#34;http://clojure.org&#34;&gt;Clojure&lt;/a&gt;, recently I decided to do one more try with daily-programmer. Here is my solution to latest task at this moment (its description can be found &lt;a href=&#34;https://www.reddit.com/r/dailyprogrammer/comments/5d1l7v/20161115_challenge_292_easy_increasing_range/&#34;&gt;here&lt;/a&gt;), I&amp;rsquo;ll go through main points and my design decisions, mainly to do small repeat to myself and maybe improve something.&lt;/p&gt;
+
+&lt;p&gt;Here is my solution and lets break it down into blocks&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-Clojure&#34;&gt;(use &#39;[clojure.string :only [split split-lines join]])
+
+(defn pow10 [i] (reduce * (repeat i 10)))
+
+(defn unshorten [x y]  ; (4)
+  (if (&amp;gt; y x)
+    y
+    (let [l-y (count (str y))
+          pred-x (quot x (pow10 l-y))  ; (4.1)
+          last-x (mod x (pow10 l-y))  ; (4.2)
+          pred (if (&amp;lt; last-x y) pred-x (inc pred-x))]  ; (4.3)
+      (Integer. (str pred y)))))  ; (4.4)
+
+(defn range-part [acc s]  ; (3)
+  (let [[t-start t-end t-step] (map #(Integer. %) (split s #&amp;quot;-|:|\.{2}&amp;quot;))
+        n (last acc)
+        start (if (nil? n) t-start (unshorten n t-start))  ; (3.1)
+        end (inc (if (nil? t-end) start (unshorten start t-end)))
+        step (if (nil? t-step) 1 t-step)]
+    (into acc (range start end step))))  ; (3.2)
+
+(defn parse-range [s]
+  (println (join &amp;quot; &amp;quot; (reduce range-part [] (split s #&amp;quot;,&amp;quot;)))))  ; (2)
+
+(seq (map parse-range (split-lines (slurp *in*))))  ; (1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;1&#34;&gt;(1)&lt;/h5&gt;
+
+&lt;p&gt;First we read input from stdin - its just the most convenient way to test/run and test after posting. Split input in lines and map our parse function over them. &lt;code&gt;seq&lt;/code&gt; function is called because &lt;code&gt;map&lt;/code&gt; is lazy and without creating sequence it well return nothing since parse won&amp;rsquo;t be called even once.&lt;/p&gt;
+
+&lt;h5 id=&#34;2&#34;&gt;(2)&lt;/h5&gt;
+
+&lt;p&gt;Then we split each line in smaller parts separated by comma, which will represent each individual range. And reduce these parts with function responsible for creating sequences. Then join results into one string separated with spaces and print it to stdout.&lt;/p&gt;
+
+&lt;h5 id=&#34;3&#34;&gt;(3)&lt;/h5&gt;
+
+&lt;p&gt;&lt;code&gt;range-part&lt;/code&gt; function which generates sequences and adds to result accumulator only does performs preparation and utilizes built-in &lt;code&gt;range&lt;/code&gt; function. Data preparation consists of splitting each part into &lt;code&gt;start&lt;/code&gt;, &lt;code&gt;end&lt;/code&gt; and &lt;code&gt;step&lt;/code&gt; components and taking last value from result so we can know if current ones are in short form or not. Since some of components may be missing (except start of course) we check if they present and &lt;code&gt;unshorten&lt;/code&gt; them (3.1). After having all these parts we just create sequence and adding it to result vector (3.2).&lt;/p&gt;
+
+&lt;h5 id=&#34;4&#34;&gt;(4)&lt;/h5&gt;
+
+&lt;p&gt;Everything before that was pretty easy and straightforward for me right of the way. But that &lt;code&gt;unshorten&lt;/code&gt; thing really got me scratching my head, because right from the start I could tell that there is way to do that in constant time, but couldn&amp;rsquo;t actually get it. And on reddit is posted older solution with this operation hella not optimized. This is actually the reason for me to write it down - analyze everything and find better solution. So here it is in some details.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn unshorten [x y]  ; (4)
+  (if (&amp;gt; y x)
+    y
+    (let [l-y (count (str y))
+          pred-x (quot x (pow10 l-y))  ; (4.1)
+          last-x (mod x (pow10 l-y))  ; (4.2)
+          pred (if (&amp;lt; last-x y) pred-x (inc pred-x))]  ; (4.3)
+      (Integer. (str pred y)))))  ; (4.4)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;First of all after converting numbers to integers I check if current number actually smaller than previous, because if not I just return it. Then I split previous number (&lt;code&gt;x&lt;/code&gt;) in two parts: one is right part with same length as current number (4.2) and second one is basically everything that comes to the left (4.1). After that split I need to decide what to add to the current number on the left side (since we now that right side will be our current number) and it either will be left part of previous number (if right side is smaller than current) as it is or it will be increased by one (4.3). And having those two parts of result I just concat them and convert back to integer (4.4).&lt;/p&gt;
+
+&lt;p&gt;So this was a little break down of solution which I came up with, and since this Wednesday there was no intermedium task I had time to do it and analyze better.&lt;/p&gt;
+
+&lt;p&gt;All sources for daily-programmer solutions I did can be found on &lt;a href=&#34;https://github.com/a-urth/daily-programmer&#34;&gt;github&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>And there was word</title>
-      <link>https://a-urth.github.io/post/and-there-was-word/</link>
+      <link>https://a-urth.github.io/post/2016/11/and-there-was-word/</link>
       <pubDate>Wed, 16 Nov 2016 12:07:39 +0200</pubDate>
       
-      <guid>https://a-urth.github.io/post/and-there-was-word/</guid>
+      <guid>https://a-urth.github.io/post/2016/11/and-there-was-word/</guid>
       <description>&lt;p&gt;And it was when I finally decided to get myself some sort of general purpose site.&lt;/p&gt;
 
 &lt;p&gt;This idea starts to concern every developer at some point. in one way or another everyone of us needs to store somewhere all of his/her ideas/thoughts/etc and preferably in one place.

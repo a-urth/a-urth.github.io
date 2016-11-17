@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily programmer (easy Monday) | Just Another Developer&#39;s Blog</title>
+<link rel="stylesheet" href="https://a-urth.github.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://a-urth.github.io/"><h1 class="title is-4">Just Another Developer&#39;s Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/a-urth">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/a_ursulenko">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 17, 2016</h2>
+    <h1 class="title">Daily programmer (easy Monday)</h1>
+    <div class="content">
+      
+
+<p>Since this is first post on daily-programmer topic I need some introduction.
+So there is this awesome sub reddit called <a href="http://reddit.com/r/dailyprogrammer/">DailyProgrammer</a> where programming tasks on algorithms are posted 3 times a week. Easy ones on Mondays, intermedium ones on Tuesdays and hard ones on Friday. You can post Your solutions in favorite language and compile and test them directly in the comment section with <code>/u/CompileBot</code>.</p>
+
+<p>I&rsquo;ve been aware about this thing for already quite some time but never was able to stick with it for too long. Actually my last try lasted only for one easy task, which is hilarious, I know.</p>
+
+<p>And as You&rsquo;ve already may guessed, since I&rsquo;m some what trying to get closer to <a href="http://clojure.org">Clojure</a>, recently I decided to do one more try with daily-programmer. Here is my solution to latest task at this moment (its description can be found <a href="https://www.reddit.com/r/dailyprogrammer/comments/5d1l7v/20161115_challenge_292_easy_increasing_range/">here</a>), I&rsquo;ll go through main points and my design decisions, mainly to do small repeat to myself and maybe improve something.</p>
+
+<p>Here is my solution and lets break it down into blocks</p>
+
+<pre><code class="language-Clojure">(use '[clojure.string :only [split split-lines join]])
+
+(defn pow10 [i] (reduce * (repeat i 10)))
+
+(defn unshorten [x y]  ; (4)
+  (if (&gt; y x)
+    y
+    (let [l-y (count (str y))
+          pred-x (quot x (pow10 l-y))  ; (4.1)
+          last-x (mod x (pow10 l-y))  ; (4.2)
+          pred (if (&lt; last-x y) pred-x (inc pred-x))]  ; (4.3)
+      (Integer. (str pred y)))))  ; (4.4)
+
+(defn range-part [acc s]  ; (3)
+  (let [[t-start t-end t-step] (map #(Integer. %) (split s #&quot;-|:|\.{2}&quot;))
+        n (last acc)
+        start (if (nil? n) t-start (unshorten n t-start))  ; (3.1)
+        end (inc (if (nil? t-end) start (unshorten start t-end)))
+        step (if (nil? t-step) 1 t-step)]
+    (into acc (range start end step))))  ; (3.2)
+
+(defn parse-range [s]
+  (println (join &quot; &quot; (reduce range-part [] (split s #&quot;,&quot;)))))  ; (2)
+
+(seq (map parse-range (split-lines (slurp *in*))))  ; (1)
+</code></pre>
+
+<h5 id="1">(1)</h5>
+
+<p>First we read input from stdin - its just the most convenient way to test/run and test after posting. Split input in lines and map our parse function over them. <code>seq</code> function is called because <code>map</code> is lazy and without creating sequence it well return nothing since parse won&rsquo;t be called even once.</p>
+
+<h5 id="2">(2)</h5>
+
+<p>Then we split each line in smaller parts separated by comma, which will represent each individual range. And reduce these parts with function responsible for creating sequences. Then join results into one string separated with spaces and print it to stdout.</p>
+
+<h5 id="3">(3)</h5>
+
+<p><code>range-part</code> function which generates sequences and adds to result accumulator only does performs preparation and utilizes built-in <code>range</code> function. Data preparation consists of splitting each part into <code>start</code>, <code>end</code> and <code>step</code> components and taking last value from result so we can know if current ones are in short form or not. Since some of components may be missing (except start of course) we check if they present and <code>unshorten</code> them (3.1). After having all these parts we just create sequence and adding it to result vector (3.2).</p>
+
+<h5 id="4">(4)</h5>
+
+<p>Everything before that was pretty easy and straightforward for me right of the way. But that <code>unshorten</code> thing really got me scratching my head, because right from the start I could tell that there is way to do that in constant time, but couldn&rsquo;t actually get it. And on reddit is posted older solution with this operation hella not optimized. This is actually the reason for me to write it down - analyze everything and find better solution. So here it is in some details.</p>
+
+<pre><code class="language-clojure">(defn unshorten [x y]  ; (4)
+  (if (&gt; y x)
+    y
+    (let [l-y (count (str y))
+          pred-x (quot x (pow10 l-y))  ; (4.1)
+          last-x (mod x (pow10 l-y))  ; (4.2)
+          pred (if (&lt; last-x y) pred-x (inc pred-x))]  ; (4.3)
+      (Integer. (str pred y)))))  ; (4.4)
+</code></pre>
+
+<p>First of all after converting numbers to integers I check if current number actually smaller than previous, because if not I just return it. Then I split previous number (<code>x</code>) in two parts: one is right part with same length as current number (4.2) and second one is basically everything that comes to the left (4.1). After that split I need to decide what to add to the current number on the left side (since we now that right side will be our current number) and it either will be left part of previous number (if right side is smaller than current) as it is or it will be increased by one (4.3). And having those two parts of result I just concat them and convert back to integer (4.4).</p>
+
+<p>So this was a little break down of solution which I came up with, and since this Wednesday there was no intermedium task I had time to do it and analyze better.</p>
+
+<p>All sources for daily-programmer solutions I did can be found on <a href="https://github.com/a-urth/daily-programmer">github</a></p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="/about">Andrii Ursulenko</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/python.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/clojure.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
