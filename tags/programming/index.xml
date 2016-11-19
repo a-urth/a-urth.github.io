@@ -10,6 +10,109 @@
     <atom:link href="https://a-urth.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Saturday morning - random coding problems solving</title>
+      <link>https://a-urth.github.io/post/random-saturday-morning-coding-tasks/</link>
+      <pubDate>Sat, 19 Nov 2016 11:31:39 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/random-saturday-morning-coding-tasks/</guid>
+      <description>
+
+&lt;p&gt;So I just randomly (from &lt;a href=&#34;http://reddit.com/r/coding&#34;&gt;/r/coding&lt;/a&gt; actually) came across this &lt;a href=&#34;http://www.gainlo.co/&#34;&gt;site&lt;/a&gt; which is built over idea of mocking interviews similar to big IT companies do. And it got my attention because it has some examples of programming tasks in its blog. Tasks, which I found seem to be not hard at all (authors mention this as well) and I think that such problems may be asked either for lower grade positions or during initial stages of interviewing process.&lt;/p&gt;
+
+&lt;p&gt;But anyway, I found some of them really interesting and since I had some time this Saturday morning I thought - way not to sharpen my coding skills with beautiful clojure (because being python dev usually on interviews I&amp;rsquo;m doing them in python).&lt;/p&gt;
+
+&lt;h5 id=&#34;move-zeroes-http-blog-gainlo-co-index-php-2016-11-18-uber-interview-question-move-zeroes&#34;&gt;&lt;a href=&#34;http://blog.gainlo.co/index.php/2016/11/18/uber-interview-question-move-zeroes/&#34;&gt;Move Zeroes&lt;/a&gt;&lt;/h5&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Modify the array by moving all the zeros to the end (right side). The order of other elements doesn’t matter.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I came with this straightforward solution. I know that it can be done better and in fact, later I did it in python in similar way which described in blog post. But this one sees to be neat and tiny.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(def problem [1 2 0 3 0 1 2])
+
+(defn reducer [[acc i] e]
+  (if (zero? e)
+    [acc (inc i)]
+    [(conj acc e) i]))
+
+(let [[non-zeros zeros-num] (reduce reducer [[] 0] problem)]
+  (into non-zeros (repeat zeros-num 0)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I&amp;rsquo;m just going through list of values counting how much zeroes there are and filtering result for them. After that I&amp;rsquo;m just adding required number of zeroes to filtered values.&lt;/p&gt;
+
+&lt;p&gt;In the blog post You can find better solution which requires data mutation, I think it can be written in &lt;code&gt;clojure&lt;/code&gt; as well but I just wasn&amp;rsquo;t interested in that.&lt;/p&gt;
+
+&lt;h5 id=&#34;delimiter-matching-http-blog-gainlo-co-index-php-2016-09-30-uber-interview-question-delimiter-matching&#34;&gt;&lt;a href=&#34;http://blog.gainlo.co/index.php/2016/09/30/uber-interview-question-delimiter-matching/&#34;&gt;Delimiter Matching&lt;/a&gt;&lt;/h5&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Write an algorithm to determine if all of the delimiters in an expression are matched and closed.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is pretty popular coding task and I&amp;rsquo;m pretty sure that everyone faced it in one way or another if they ever done some programming stuff on data structures. Because this is the most popular showcase for &lt;code&gt;stack&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(def problem &amp;quot;[dklf(df(kl))d]{&amp;quot;)
+
+(def brackets-m {\] \[, \} \{, \) \(})
+
+(def closings (set (keys brackets-m)))
+
+(def openings (set (vals brackets-m)))
+
+(def error-msg &amp;quot;Delimiters unmatched!&amp;quot;)
+
+(defn match? [o c] (= (get brackets-m c) o))
+
+(defn process-sym [res s]
+  (cond
+    (contains? openings s) (conj res s)
+    (contains? closings s) (if (match? (last res) s)
+                             (drop-last res)
+                             (throw (Exception. error-msg)))
+    :else res))
+
+(let [s (reduce process-sym [] problem)]
+  (when (not (empty? s))
+    (throw (Exception. error-msg))))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are plenty of &lt;code&gt;def&lt;/code&gt;s and helper function&amp;rsquo;s declaration but main idea is in &lt;code&gt;process-sym&lt;/code&gt; function. What id does is checks if we have other than bracket symbol - just continue, if its an opening bracket - put it into stack, if closing one - take last from stack and compare them. If they do not match each other - raise exception which means that delimiters are not matched. Same check is required after processing whole sequence - if there is still something in the stack, then raise exception. &lt;code&gt;nil&lt;/code&gt; returned if delimiters are matched. I did it with exceptions just because its easier to propagate error in &lt;code&gt;process-sym&lt;/code&gt; but it can be approached in some other ways.&lt;/p&gt;
+
+&lt;h5 id=&#34;longest-substring-without-repeating-characters-http-blog-gainlo-co-index-php-2016-10-07-facebook-interview-longest-substring-without-repeating-characters&#34;&gt;&lt;a href=&#34;http://blog.gainlo.co/index.php/2016/10/07/facebook-interview-longest-substring-without-repeating-characters/&#34;&gt;Longest Substring Without Repeating Characters&lt;/a&gt;&lt;/h5&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Given a string, find the longest substring without repeating characters.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I&amp;rsquo;m sure that this one is also popular programming question but I actually never came across it. Right of the way I&amp;rsquo;ve noticed naive solution (check all substrings), but its obvious that this was not the most efficient one, so I&amp;rsquo;ve decided to think a little before writing even single character. Soon I found that we can store symbols in set to check for repeats and use two pointers for current substring and in case of repeat we should start next search from position of repeated symbol. But my mistake was that I wanted to use position of second repeated symbol instead of first one. In order to do that efficient I changed my set to map with symbols as keys and their indexes as values and it worked like a charm.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(def problem &amp;quot;abccdefdgh&amp;quot;)
+
+(def problem-l (count problem))
+
+(loop [start-i 0 end-i 0
+       cur-syms-m {}]
+  (if (= end-i problem-l)
+    (subs problem start-i end-i)
+    (let [cur-sym (get problem end-i)
+          cur-i (get cur-syms-m cur-sym)
+          next-end-i (inc end-i)]
+      (if (nil? cur-i)
+        (recur start-i next-end-i (conj cur-syms-m {cur-sym end-i}))
+        (recur (inc cur-i) next-end-i {cur-sym cur-i})))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In blogpost You can find solution in python which uses similar but slightly different approach.&lt;/p&gt;
+
+&lt;h5 id=&#34;design-hit-counter-http-blog-gainlo-co-index-php-2016-09-12-dropbox-interview-design-hit-counter&#34;&gt;&lt;a href=&#34;http://blog.gainlo.co/index.php/2016/09/12/dropbox-interview-design-hit-counter/&#34;&gt;Design Hit Counter&lt;/a&gt;&lt;/h5&gt;
+
+&lt;p&gt;Interesting question on systems design, again, pretty common one. Only thing that I would like to add is if You need to count only unique visitors and we are talking about really big amount of data then speed and memory efficiency are much more important then exact answer, so approximation approaches such as &lt;a href=&#34;https://en.wikipedia.org/wiki/HyperLogLog&#34;&gt;HyperLoglog&lt;/a&gt; should be mentioned.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Daily programmer (easy Monday)</title>
       <link>https://a-urth.github.io/post/daily-programmer-easy/</link>
       <pubDate>Thu, 17 Nov 2016 18:05:25 +0200</pubDate>

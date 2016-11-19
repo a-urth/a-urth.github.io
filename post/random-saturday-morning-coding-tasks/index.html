@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saturday morning - random coding problems solving | Just Another Developer&#39;s Blog</title>
+<link rel="stylesheet" href="https://a-urth.github.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://a-urth.github.io/"><h1 class="title is-4">Just Another Developer&#39;s Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/a-urth">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/a_ursulenko">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 19, 2016</h2>
+    <h1 class="title">Saturday morning - random coding problems solving</h1>
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/clojure">clojure</a>
+    
+        <a class="button is-link" href="/tags/dev">dev</a>
+    
+        <a class="button is-link" href="/tags/programming">programming</a>
+    
+        <a class="button is-link" href="/tags/code">code</a>
+    
+</div>
+
+    
+    <div class="content">
+      
+
+<p>So I just randomly (from <a href="http://reddit.com/r/coding">/r/coding</a> actually) came across this <a href="http://www.gainlo.co/">site</a> which is built over idea of mocking interviews similar to big IT companies do. And it got my attention because it has some examples of programming tasks in its blog. Tasks, which I found seem to be not hard at all (authors mention this as well) and I think that such problems may be asked either for lower grade positions or during initial stages of interviewing process.</p>
+
+<p>But anyway, I found some of them really interesting and since I had some time this Saturday morning I thought - way not to sharpen my coding skills with beautiful clojure (because being python dev usually on interviews I&rsquo;m doing them in python).</p>
+
+<h5 id="move-zeroes-http-blog-gainlo-co-index-php-2016-11-18-uber-interview-question-move-zeroes"><a href="http://blog.gainlo.co/index.php/2016/11/18/uber-interview-question-move-zeroes/">Move Zeroes</a></h5>
+
+<blockquote>
+<p>Modify the array by moving all the zeros to the end (right side). The order of other elements doesn’t matter.</p>
+</blockquote>
+
+<p>I came with this straightforward solution. I know that it can be done better and in fact, later I did it in python in similar way which described in blog post. But this one sees to be neat and tiny.</p>
+
+<pre><code class="language-clojure">(def problem [1 2 0 3 0 1 2])
+
+(defn reducer [[acc i] e]
+  (if (zero? e)
+    [acc (inc i)]
+    [(conj acc e) i]))
+
+(let [[non-zeros zeros-num] (reduce reducer [[] 0] problem)]
+  (into non-zeros (repeat zeros-num 0)))
+</code></pre>
+
+<p>So I&rsquo;m just going through list of values counting how much zeroes there are and filtering result for them. After that I&rsquo;m just adding required number of zeroes to filtered values.</p>
+
+<p>In the blog post You can find better solution which requires data mutation, I think it can be written in <code>clojure</code> as well but I just wasn&rsquo;t interested in that.</p>
+
+<h5 id="delimiter-matching-http-blog-gainlo-co-index-php-2016-09-30-uber-interview-question-delimiter-matching"><a href="http://blog.gainlo.co/index.php/2016/09/30/uber-interview-question-delimiter-matching/">Delimiter Matching</a></h5>
+
+<blockquote>
+<p>Write an algorithm to determine if all of the delimiters in an expression are matched and closed.</p>
+</blockquote>
+
+<p>This is pretty popular coding task and I&rsquo;m pretty sure that everyone faced it in one way or another if they ever done some programming stuff on data structures. Because this is the most popular showcase for <code>stack</code>.</p>
+
+<pre><code class="language-clojure">(def problem &quot;[dklf(df(kl))d]{&quot;)
+
+(def brackets-m {\] \[, \} \{, \) \(})
+
+(def closings (set (keys brackets-m)))
+
+(def openings (set (vals brackets-m)))
+
+(def error-msg &quot;Delimiters unmatched!&quot;)
+
+(defn match? [o c] (= (get brackets-m c) o))
+
+(defn process-sym [res s]
+  (cond
+    (contains? openings s) (conj res s)
+    (contains? closings s) (if (match? (last res) s)
+                             (drop-last res)
+                             (throw (Exception. error-msg)))
+    :else res))
+
+(let [s (reduce process-sym [] problem)]
+  (when (not (empty? s))
+    (throw (Exception. error-msg))))
+
+</code></pre>
+
+<p>There are plenty of <code>def</code>s and helper function&rsquo;s declaration but main idea is in <code>process-sym</code> function. What id does is checks if we have other than bracket symbol - just continue, if its an opening bracket - put it into stack, if closing one - take last from stack and compare them. If they do not match each other - raise exception which means that delimiters are not matched. Same check is required after processing whole sequence - if there is still something in the stack, then raise exception. <code>nil</code> returned if delimiters are matched. I did it with exceptions just because its easier to propagate error in <code>process-sym</code> but it can be approached in some other ways.</p>
+
+<h5 id="longest-substring-without-repeating-characters-http-blog-gainlo-co-index-php-2016-10-07-facebook-interview-longest-substring-without-repeating-characters"><a href="http://blog.gainlo.co/index.php/2016/10/07/facebook-interview-longest-substring-without-repeating-characters/">Longest Substring Without Repeating Characters</a></h5>
+
+<blockquote>
+<p>Given a string, find the longest substring without repeating characters.</p>
+</blockquote>
+
+<p>I&rsquo;m sure that this one is also popular programming question but I actually never came across it. Right of the way I&rsquo;ve noticed naive solution (check all substrings), but its obvious that this was not the most efficient one, so I&rsquo;ve decided to think a little before writing even single character. Soon I found that we can store symbols in set to check for repeats and use two pointers for current substring and in case of repeat we should start next search from position of repeated symbol. But my mistake was that I wanted to use position of second repeated symbol instead of first one. In order to do that efficient I changed my set to map with symbols as keys and their indexes as values and it worked like a charm.</p>
+
+<pre><code class="language-clojure">(def problem &quot;abccdefdgh&quot;)
+
+(def problem-l (count problem))
+
+(loop [start-i 0 end-i 0
+       cur-syms-m {}]
+  (if (= end-i problem-l)
+    (subs problem start-i end-i)
+    (let [cur-sym (get problem end-i)
+          cur-i (get cur-syms-m cur-sym)
+          next-end-i (inc end-i)]
+      (if (nil? cur-i)
+        (recur start-i next-end-i (conj cur-syms-m {cur-sym end-i}))
+        (recur (inc cur-i) next-end-i {cur-sym cur-i})))))
+</code></pre>
+
+<p>In blogpost You can find solution in python which uses similar but slightly different approach.</p>
+
+<h5 id="design-hit-counter-http-blog-gainlo-co-index-php-2016-09-12-dropbox-interview-design-hit-counter"><a href="http://blog.gainlo.co/index.php/2016/09/12/dropbox-interview-design-hit-counter/">Design Hit Counter</a></h5>
+
+<p>Interesting question on systems design, again, pretty common one. Only thing that I would like to add is if You need to count only unique visitors and we are talking about really big amount of data then speed and memory efficiency are much more important then exact answer, so approximation approaches such as <a href="https://en.wikipedia.org/wiki/HyperLogLog">HyperLoglog</a> should be mentioned.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'a-urth';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="/about">Andrii Ursulenko</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/python.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/clojure.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
