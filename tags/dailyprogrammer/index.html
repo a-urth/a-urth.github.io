@@ -46,6 +46,42 @@
   <div class="container">
     
     <article>
+      <h2 class="subtitle is-6">November 21, 2016</h2>
+      <h1 class="title"><a href="https://a-urth.github.io/post/daily-programmer-easy-2/">Daily programmer (easy Monday)</a></h1>
+      
+        <div class="tags">
+    
+        <a class="button is-link" href="/tags/programming">programming</a>
+    
+        <a class="button is-link" href="/tags/dev">dev</a>
+    
+        <a class="button is-link" href="/tags/code">code</a>
+    
+        <a class="button is-link" href="/tags/algorithms">algorithms</a>
+    
+        <a class="button is-link" href="/tags/dailyprogrammer">dailyprogrammer</a>
+    
+        <a class="button is-link" href="/tags/clojure">clojure</a>
+    
+</div>
+
+      
+      <div class="content">
+        Another easy Monday except this one is little bit more easy than last one. Here is the task.
+I finished rather fast with initial version, but doing little changes for of times I&rsquo;ve ended up with this.
+(ns daily-programmer.20161121_easy.core (:use [clojure.string :only [split-lines]])) (def wire-rules-m {&quot;white&quot; {:to-cut #{} :not-to-cut #{&quot;white&quot; &quot;black&quot;}} &quot;red&quot; {:to-cut #{&quot;green&quot;} :not-to-cut #{}} &quot;black&quot; {:to-cut #{} :not-to-cut #{&quot;white&quot; &quot;green&quot; &quot;orange&quot;}} &quot;orange&quot; {:to-cut #{&quot;red&quot; &quot;black&quot;} :not-to-cut #{}} &quot;green&quot; {:to-cut #{&quot;orange&quot; &quot;white&quot;} :not-to-cut #{}} &quot;purple&quot; {:to-cut #{} :not-to-cut #{&quot;purple&quot; &quot;green&quot; &quot;orange&quot; &quot;white&quot;}}}) (defn can-cut?
+        
+        ...<a class="button is-link" href="https://a-urth.github.io/post/daily-programmer-easy-2/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
       <h2 class="subtitle is-6">November 17, 2016</h2>
       <h1 class="title"><a href="https://a-urth.github.io/post/daily-programmer-easy/">Daily programmer (easy Monday)</a></h1>
       

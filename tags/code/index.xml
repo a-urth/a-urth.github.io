@@ -10,6 +10,61 @@
     <atom:link href="https://a-urth.github.io/tags/code/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Daily programmer (easy Monday)</title>
+      <link>https://a-urth.github.io/post/daily-programmer-easy-2/</link>
+      <pubDate>Mon, 21 Nov 2016 23:35:07 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/daily-programmer-easy-2/</guid>
+      <description>&lt;p&gt;Another easy Monday except this one is little bit more easy than last one. &lt;a href=&#34;https://www.reddit.com/r/dailyprogrammer/comments/5e4mde/20161121_challenge_293_easy_defusing_the_bomb/&#34;&gt;Here&lt;/a&gt; is the task.&lt;/p&gt;
+
+&lt;p&gt;I finished rather fast with initial version, but doing little changes for of times I&amp;rsquo;ve ended up with this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(ns daily-programmer.20161121_easy.core
+  (:use [clojure.string :only [split-lines]]))
+
+(def wire-rules-m {&amp;quot;white&amp;quot; {:to-cut #{} :not-to-cut #{&amp;quot;white&amp;quot; &amp;quot;black&amp;quot;}}
+                   &amp;quot;red&amp;quot; {:to-cut #{&amp;quot;green&amp;quot;} :not-to-cut #{}}
+                   &amp;quot;black&amp;quot; {:to-cut #{} :not-to-cut #{&amp;quot;white&amp;quot; &amp;quot;green&amp;quot; &amp;quot;orange&amp;quot;}}
+                   &amp;quot;orange&amp;quot; {:to-cut #{&amp;quot;red&amp;quot; &amp;quot;black&amp;quot;} :not-to-cut #{}}
+                   &amp;quot;green&amp;quot; {:to-cut #{&amp;quot;orange&amp;quot; &amp;quot;white&amp;quot;} :not-to-cut #{}}
+                   &amp;quot;purple&amp;quot; {:to-cut #{} :not-to-cut #{&amp;quot;purple&amp;quot; &amp;quot;green&amp;quot; &amp;quot;orange&amp;quot; &amp;quot;white&amp;quot;}}})
+
+(defn can-cut? [wire &amp;amp; [{:keys [to-cut not-to-cut]} rules]]
+  (and
+   (or (empty? to-cut) (contains? to-cut wire))
+   (or (empty? not-to-cut) (not (contains? not-to-cut wire)))))
+
+(defn defuse
+  ([wires]
+   (defuse wires {:to-cut #{}, :not-to-cut #{}}))
+
+  ([[wire &amp;amp; others] rules]
+   (let [cut (can-cut? wire rules)]
+     (if (nil? others)
+       cut
+       (and cut (recur others (get wire-rules-m wire)))))))
+
+(println (if (defuse (split-lines (slurp *in*))) &amp;quot;Bomb defused&amp;quot; &amp;quot;Boom&amp;quot;))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And as You can guess I didn&amp;rsquo;t have a clue how to implement real state machines. If You want to see something cool and fast then You should definitely check couple of top comments on reddit thread, its insane!&lt;/p&gt;
+
+&lt;p&gt;So, getting back to my solution - major things I changed comparing to initial version are:
+* changed &lt;code&gt;loop&lt;/code&gt; and default arguments in it to function with two arities and doing recur directly to it;
+* replaced &lt;code&gt;if&lt;/code&gt; form with &lt;code&gt;and&lt;/code&gt; so it looks shorter and cleaner e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(and cut (recur others (get wire-rules-m wire))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;previously rules map destructuring was done in &lt;code&gt;let&lt;/code&gt; just before recursion call, moved it to &lt;code&gt;can-cut?&lt;/code&gt; function arguments;&lt;/li&gt;
+&lt;li&gt;changed names of rules map keys, now its much better then &amp;ldquo;allowed&amp;rdquo; and &amp;ldquo;disallowed&amp;rdquo; in my opinion.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Saturday morning - random coding problems solving</title>
       <link>https://a-urth.github.io/post/random-saturday-morning-coding-tasks/</link>
       <pubDate>Sat, 19 Nov 2016 11:31:39 +0200</pubDate>
