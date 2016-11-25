@@ -10,6 +10,58 @@
     <atom:link href="https://a-urth.github.io/tags/oop/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Weekly feature - second and last for November 2016</title>
+      <link>https://a-urth.github.io/post/weekly-feature-201611-2/</link>
+      <pubDate>Fri, 25 Nov 2016 14:35:40 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/weekly-feature-201611-2/</guid>
+      <description>
+
+&lt;p&gt;Again I&amp;rsquo;m bringing pile of articles I&amp;rsquo;ve read this week and found them interesting enough to share.&lt;/p&gt;
+
+&lt;p&gt;The most interesting things in my opinion were those tensioned discussions all over the internet about Zed Show&amp;rsquo;s article on python 3. Also I&amp;rsquo;ve read some materials on CAP theorem, yes, again, to clarify missing moments for me one more time. And I finally found book on Clojure for myself. I twice dismissed &lt;code&gt;Brave and true&lt;/code&gt;, its not bad in any sense, but just doesn&amp;rsquo;t fit my needs. &lt;code&gt;Programming clojure&lt;/code&gt; on the other hand appeared to be very interesting and informative reading. In couple of weeks I hope I&amp;rsquo;ll do a review for that.&lt;/p&gt;
+
+&lt;h4 id=&#34;articles-on-software-development-stuff&#34;&gt;Articles on software development stuff&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interesting bug related with hash tables in &lt;code&gt;rust&lt;/code&gt; which made lookup/insert operations go quadratic and interesting discussion also. [&lt;a href=&#34;https://www.reddit.com/r/programming/comments/5eow80/rusts_standard_hash_table_types_could_go/&#34;&gt;https://www.reddit.com/r/programming/comments/5eow80/rusts_standard_hash_table_types_could_go/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Incredible amount of different materials on CS topics. Simply treasure. [&lt;a href=&#34;https://github.com/Developer-Y/cs-video-courses/blob/master/README.md#data-structures-and-algorithms&#34;&gt;https://github.com/Developer-Y/cs-video-courses/blob/master/README.md#data-structures-and-algorithms&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Weird stuff from the author of the one of most popular courses for python newbies. Almost all arguments are like from another planet and tone of the article is so pretentious [&lt;a href=&#34;https://learnpythonthehardway.org/book/nopython3.html&#34;&gt;https://learnpythonthehardway.org/book/nopython3.html&lt;/a&gt;] and great response to it [&lt;a href=&#34;https://eev.ee/blog/2016/11/23/a-rebuttal-for-python-3/&#34;&gt;https://eev.ee/blog/2016/11/23/a-rebuttal-for-python-3/&lt;/a&gt;] and sort of post mortem from author [&lt;a href=&#34;https://zedshaw.com/2016/11/24/the-end-of-coder-influence/&#34;&gt;https://zedshaw.com/2016/11/24/the-end-of-coder-influence/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Brief introduction to &lt;code&gt;go&lt;/code&gt; interfaces. [&lt;a href=&#34;http://www.calhoun.io/how-do-interfaces-work-in-go/&#34;&gt;http://www.calhoun.io/how-do-interfaces-work-in-go/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Insane overview of distributed systems class from Aphyr. [&lt;a href=&#34;https://github.com/aphyr/distsys-class&#34;&gt;https://github.com/aphyr/distsys-class&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Which rules provide for user&amp;rsquo;s passwords in 2016. [&lt;a href=&#34;https://nakedsecurity.sophos.com/2016/08/18/nists-new-password-rules-what-you-need-to-know/&#34;&gt;https://nakedsecurity.sophos.com/2016/08/18/nists-new-password-rules-what-you-need-to-know/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Rapid intro to Lisp. [&lt;a href=&#34;https://hackernoon.com/learn-you-a-lisp-in-0-minutes-e0c1a060a178#.wnnx02rfe&#34;&gt;https://hackernoon.com/learn-you-a-lisp-in-0-minutes-e0c1a060a178#.wnnx02rfe&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Great reading on very clever simplification for inverse square root and why its important. [&lt;a href=&#34;http://h14s.p5r.org/2012/09/0x5f3759df.html&#34;&gt;http://h14s.p5r.org/2012/09/0x5f3759df.html&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Yet another stone thrown at python by one of its long term users. I&amp;rsquo;m kinda agreed with point of view of Jeff in terms that python code is really hard maintainable in bigger scale and in longer terms especially with big teams. Not that its bad language by any means, it just compromises some safety, speed and robustness in favor to simplicity (at least on the surface) and user friendliness. I&amp;rsquo;m caught by myself not even once that I&amp;rsquo;m missing static typing in python badly. [&lt;a href=&#34;https://jeffknupp.com/blog/2016/11/13/how-python-makes-working-with-data-more-difficult-in-the-long-run/&#34;&gt;https://jeffknupp.com/blog/2016/11/13/how-python-makes-working-with-data-more-difficult-in-the-long-run/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Interesting note on trailing slashes for URIs. Never actually fought about such problem, but this week I faced it and decided to do some investigation. This article seems to be the most reasonable explanation. Note that for REST it will slightly differ. [&lt;a href=&#34;https://cdivilly.wordpress.com/2014/03/11/why-trailing-slashes-on-uris-are-important/&#34;&gt;https://cdivilly.wordpress.com/2014/03/11/why-trailing-slashes-on-uris-are-important/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;This looks so weird that I can&amp;rsquo;t even say what am I thinking about that. This looks interesting and pretentious at the same time. New programming language, new platform, new paradigm? [&lt;a href=&#34;https://hackernoon.com/how-eve-unifies-your-entire-programming-stack-900ca80c58a7#.hwfuncwxs&#34;&gt;https://hackernoon.com/how-eve-unifies-your-entire-programming-stack-900ca80c58a7#.hwfuncwxs&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Semaphore and deadlock explained as easy as it can gets. [&lt;a href=&#34;https://www.reddit.com/r/compsci/comments/5e08s5/eli5_semaphores_and_the_producerconsumer_problem/&#34;&gt;https://www.reddit.com/r/compsci/comments/5e08s5/eli5_semaphores_and_the_producerconsumer_problem/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Couple of articles on infamous CAP theorem.
+
+&lt;ul&gt;
+&lt;li&gt;Briefly what is it all about - [&lt;a href=&#34;https://jvns.ca/blog/2016/11/19/a-critique-of-the-cap-theorem/&#34;&gt;https://jvns.ca/blog/2016/11/19/a-critique-of-the-cap-theorem/&lt;/a&gt;] which lead me to next two.&lt;/li&gt;
+&lt;li&gt;Almost the same but with much more details, great reading actually. [&lt;a href=&#34;https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed&#34;&gt;https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed&lt;/a&gt;].&lt;/li&gt;
+&lt;li&gt;Also great read with similar arguments but with better explanation of terminology and issues and with tons of links to other great materials. [&lt;a href=&#34;https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html&#34;&gt;https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Interesting point of view on how abstractions affect our code with time and different people and why its better to simplify them right from the start and even rewrite with time. [&lt;a href=&#34;http://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction&#34;&gt;http://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Interesting site which promises to provide developer mock interview same as it in those dream companies like Amazon, Uber, Facebook etc. I found its interesting because of blog and couple of articles about pretty cool interview question, generally programming ones. [&lt;a href=&#34;http://www.gainlo.co/&#34;&gt;http://www.gainlo.co/&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;articles-on-other-interesting-topics&#34;&gt;Articles on other interesting topics&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Valid rant on new USB-C ports and their wide capabilities and why it will be very misleading for regular customers and bad for market in general. &lt;a href=&#34;__RUS__&#34;&gt;https://geektimes.ru/post/282824/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Got my jaw dropped after reading that something like that exists - prime number which in binary form represents program to brake DVD protection. [&lt;a href=&#34;https://en.wikipedia.org/wiki/Illegal_prime&#34;&gt;https://en.wikipedia.org/wiki/Illegal_prime&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Flaws of deterministic password managers. And I actually didn&amp;rsquo;t even know that such exists. Anyway after reading this article I don&amp;rsquo;t think that I would try some. [&lt;a href=&#34;https://tonyarcieri.com/4-fatal-flaws-in-deterministic-password-managers&#34;&gt;https://tonyarcieri.com/4-fatal-flaws-in-deterministic-password-managers&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Very interesting reading on ternary machines. I&amp;rsquo;ve already read ones about such unique computers and that they were more efficient calculation wise than binary ones. But I never thought actually why. And the most interesting thing for me appeared that worldwide usage of binary systems is explained by easiness and low price of production. Is it possible for all of us to switch to some other systems if we&amp;rsquo;ll actually learn how to make production of those ternary elements cheap? [&lt;a href=&#34;https://dev.to/buntine/the-balanced-ternary-machines-of-soviet-russia&#34;&gt;https://dev.to/buntine/the-balanced-ternary-machines-of-soviet-russia&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Why Apple&amp;rsquo;s new macbook pros have only 16Gb of RAM? [&lt;a href=&#34;https://macdaddy.io/macbook-pro-limited-16gb-ram/&#34;&gt;https://macdaddy.io/macbook-pro-limited-16gb-ram/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Interesting confession of mature developer about stuff he did as a youngster. Definitely worth reading and thinking about what ACTUALLY we are doing while write code. [&lt;a href=&#34;https://medium.freecodecamp.com/the-code-im-still-ashamed-of-e4c021dff55e#.dht7gjk43&#34;&gt;https://medium.freecodecamp.com/the-code-im-still-ashamed-of-e4c021dff55e#.dht7gjk43&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Great application for Mac OS on recreating pictures in primitive shapes. It looks really awesome! [&lt;a href=&#34;https://primitive.lol&#34;&gt;https://primitive.lol&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Weekly feature - first for November 2016</title>
       <link>https://a-urth.github.io/post/weekly-feature-201611-1/</link>
       <pubDate>Fri, 18 Nov 2016 17:01:26 +0200</pubDate>

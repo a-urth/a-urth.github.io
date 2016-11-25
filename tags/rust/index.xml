@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Just Another Developer&#39;s Blog</title>
-    <link>https://a-urth.github.io/tags/go/index.xml</link>
+    <link>https://a-urth.github.io/tags/rust/index.xml</link>
     <description>Recent content on Just Another Developer&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://a-urth.github.io/about&#34;&gt;Andrii Ursulenko&lt;/a&gt; 2016</copyright>
-    <atom:link href="https://a-urth.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://a-urth.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Weekly feature - second and last for November 2016</title>
@@ -58,56 +58,6 @@
 &lt;li&gt;Interesting confession of mature developer about stuff he did as a youngster. Definitely worth reading and thinking about what ACTUALLY we are doing while write code. [&lt;a href=&#34;https://medium.freecodecamp.com/the-code-im-still-ashamed-of-e4c021dff55e#.dht7gjk43&#34;&gt;https://medium.freecodecamp.com/the-code-im-still-ashamed-of-e4c021dff55e#.dht7gjk43&lt;/a&gt;]&lt;/li&gt;
 &lt;li&gt;Great application for Mac OS on recreating pictures in primitive shapes. It looks really awesome! [&lt;a href=&#34;https://primitive.lol&#34;&gt;https://primitive.lol&lt;/a&gt;]&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Weekly feature - first for November 2016</title>
-      <link>https://a-urth.github.io/post/weekly-feature-201611-1/</link>
-      <pubDate>Fri, 18 Nov 2016 17:01:26 +0200</pubDate>
-      
-      <guid>https://a-urth.github.io/post/weekly-feature-201611-1/</guid>
-      <description>
-
-&lt;p&gt;So this is one of the things I actually started running this blog for. I want to collect all written/watched/seen stuff related to software development, IT in general or simply something interesting in one place and post it weekly in sort of digest.&lt;/p&gt;
-
-&lt;p&gt;Since I&amp;rsquo;m doing this strictly for myself there will be no language or technology specific stuff, but just anything I&amp;rsquo;ve read or seen during week and found interesting for myself. And since its first issue I&amp;rsquo;ll add couple of items which I&amp;rsquo;ve found little bit more than a week ago. Also all articles are in English if other not specified in braces after link.&lt;/p&gt;
-
-&lt;p&gt;So lets start.&lt;/p&gt;
-
-&lt;h4 id=&#34;articles-on-software-development-stuff&#34;&gt;Articles on software development stuff&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;What to use for game development in python. Regardless possible argument that no one actually writes games in python (and its just wrong assumption) its interesting discussion. I remember me just getting into all this python stuff almost 4 years ago I also was thinking about what to use. PyGame was sort of goto solution because of its popularity mainly. But seems that now its almost completely dead and there is no strict answer to that question. [&lt;a href=&#34;https://www.reddit.com/r/Python/comments/5dgp20/if_the_pyglet_community_is_dead_and_pygame_is_not/&#34;&gt;https://www.reddit.com/r/Python/comments/5dgp20/if_the_pyglet_community_is_dead_and_pygame_is_not/&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Materialized views in pg 9.4, briefly. [&lt;a href=&#34;http://bonesmoses.org/2015/03/06/pg-phriday-materialized-views-revisited/&#34;&gt;http://bonesmoses.org/2015/03/06/pg-phriday-materialized-views-revisited/&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Interesting practical thoughts on how to write OOP code that doesn&amp;rsquo;t suck. Especially crucial nowadays when it seems that no one pays attention to OOP. [&lt;a href=&#34;https://dev.to/naveen/how-to-write-an-object-oriented-program-that-doesnt-suck&#34;&gt;https://dev.to/naveen/how-to-write-an-object-oriented-program-that-doesnt-suck&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Another round of frameworks battle is down and there are some interesting results. For me the most interesting thing appeared that all somewhat fast python frameworks use &lt;a href=&#34;http://meinheld.org&#34;&gt;Meinheld&lt;/a&gt; as a web server, which, to my shame, I&amp;rsquo;ve never heard of. Also I&amp;rsquo;ve been surprised that &lt;code&gt;gin&lt;/code&gt; framework for &lt;code&gt;go&lt;/code&gt; is so fast in json serialization test and ok for all others (last is expected). In more real life tests with db usage &lt;code&gt;fasthttp&lt;/code&gt; is still the king. Also have no idea whats up with top 3 &lt;code&gt;Dart&lt;/code&gt; frameworks in multiple queries test. [&lt;a href=&#34;https://www.techempower.com/benchmarks/#section=data-r13&amp;amp;hw=ph&amp;amp;test=query&#34;&gt;https://www.techempower.com/benchmarks/#section=data-r13&amp;amp;hw=ph&amp;amp;test=query&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Interesting reading on &lt;code&gt;go&lt;/code&gt;&amp;rsquo;s specifics or I&amp;rsquo;d rather say tricks and gotchas. Yes, they exist, but usually obvious and definitely not so ridiculous as javascript ones for example. I&amp;rsquo;m not that proficient in &lt;code&gt;go&lt;/code&gt; but even I knew almost all of them. &lt;a href=&#34;__RUS__&#34;&gt;https://habrahabr.ru/company/mailru/blog/314804/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Good old stuff from famous Aphyr on RabbitMQ&amp;rsquo;s approaches to clustering and possible tradeoffs. I&amp;rsquo;ve already read in once but just wanted to remind myself what was the problem and how to avoid it. [&lt;a href=&#34;https://aphyr.com/posts/315-jepsen-rabbitmq&#34;&gt;https://aphyr.com/posts/315-jepsen-rabbitmq&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Cool point on why iterating in python over unordered collection is slower than on ordered one. [&lt;a href=&#34;https://rickystewart.wordpress.com/2013/09/03/why-sorting-an-array-makes-a-python-loop-faster/&#34;&gt;https://rickystewart.wordpress.com/2013/09/03/why-sorting-an-array-makes-a-python-loop-faster/&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Interesting brief introduction to general purpose retrying in programming with examples in python/flask from Miguel Grinberg. [&lt;a href=&#34;https://blog.miguelgrinberg.com/post/how-to-retry-with-class&#34;&gt;https://blog.miguelgrinberg.com/post/how-to-retry-with-class&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Interesting and motivational reading about building right attitude for game development, especially when You&amp;rsquo;re trying to get Your first game done. [&lt;a href=&#34;http://howtomakeanrpg.com/a/not-your-problem.html&#34;&gt;http://howtomakeanrpg.com/a/not-your-problem.html&lt;/a&gt;]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;articles-on-other-interesting-topics&#34;&gt;Articles on other interesting topics&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Some stories and historical facts about how different people - famous and not - used algorithms in day-to-day life. And general overview on what are algorithms and why You should care about them for non computer science folks. &lt;a href=&#34;__RUS__&#34;&gt;https://newtonew.com/discussions/algorithms-to-live-by&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Entertainment reading on how to control vertical alignment of skyscraper during its construction. Which techniques used and how do they work. &lt;a href=&#34;__RUS__&#34;&gt;https://geektimes.ru/company/lakhta_center/blog/282584/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Interesting story about young fella who tried to create his own nuclear power station and how it ended (spoiler - it ended badly). &lt;a href=&#34;__RUS__&#34;&gt;https://geektimes.ru/post/282594/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Very interesting research on distribution of computer skills and how it should affect our thoughts about target auditory for software we build. [&lt;a href=&#34;https://www.nngroup.com/articles/computer-skill-levels/&#34;&gt;https://www.nngroup.com/articles/computer-skill-levels/&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;Couple of cheerful words from great blogger WaitButWhy on latest USA elections. Generally what he tries to say that every one has its one opinion and You actually should not be so afraid of what happened. [&lt;a href=&#34;http://waitbutwhy.com/2016/11/its-going-to-be-okay.html&#34;&gt;http://waitbutwhy.com/2016/11/its-going-to-be-okay.html&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;And for something completely different - Ukrainian military forces presented new rocket launcher which apparently uses&amp;hellip; RaspberryPi. Yeah&amp;hellip; It may be complete bullshit but also may be really interesting usage of this neat small computer. And this case actually reminded me some cool &lt;a href=&#34;https://en.wikipedia.org/wiki/PlayStation_3_cluster&#34;&gt;usage of PS3&lt;/a&gt;, so don&amp;rsquo;t underestimate brave engineering approaches. [&lt;a href=&#34;http://www.popularmechanics.com/military/weapons/a23774/raspberry-pi-ukrainian-weapon-system/&#34;&gt;http://www.popularmechanics.com/military/weapons/a23774/raspberry-pi-ukrainian-weapon-system/&lt;/a&gt;]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;videos&#34;&gt;Videos&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;EuroClojure 2016 and there are some great speakers with tons of cool stuff. Just watched couple of them and it seems really interesting. [&lt;a href=&#34;https://www.youtube.com/playlist?list=PLZdCLR02grLowQLPjuZ7k3pl2ScEyW7A7&#34;&gt;https://www.youtube.com/playlist?list=PLZdCLR02grLowQLPjuZ7k3pl2ScEyW7A7&lt;/a&gt;]&lt;/li&gt;
-&lt;li&gt;LabmdaConf 2016 happened In September (yeah, two months passed Andrii). Watched through couple of most viewed but didn&amp;rsquo;t quite find something really interesting for me. [&lt;a href=&#34;https://www.youtube.com/channel/UCEtohQeDqMSebi2yvLMUItg/videos&#34;&gt;https://www.youtube.com/channel/UCEtohQeDqMSebi2yvLMUItg/videos&lt;/a&gt;]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Almost all that stuff can be found also on my &lt;a href=&#34;http://twitter.com/a_ursulenko&#34;&gt;twitter&lt;/a&gt; there I&amp;rsquo;ll post it just as found.&lt;/p&gt;
 </description>
     </item>
     
