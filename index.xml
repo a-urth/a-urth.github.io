@@ -7,8 +7,89 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://a-urth.github.io/about&#34;&gt;Andrii Ursulenko&lt;/a&gt; 2016</copyright>
-    <lastBuildDate>Fri, 25 Nov 2016 14:35:40 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 27 Nov 2016 10:44:08 +0200</lastBuildDate>
     <atom:link href="https://a-urth.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Daily programmer - saturday defusal</title>
+      <link>https://a-urth.github.io/post/daily-programmer-intermediate-2/</link>
+      <pubDate>Sun, 27 Nov 2016 10:44:08 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/daily-programmer-intermediate-2/</guid>
+      <description>&lt;p&gt;Right of the way gonna say that doing it on Saturday just because didn&amp;rsquo;t feel like doing it at all. This task is based on Mondays one and consists of two parts. Task is &lt;a href=&#34;https://www.reddit.com/r/dailyprogrammer/comments/5emuuy/20161124_challenge_293_intermediate_defusing_the/&#34;&gt;here&lt;/a&gt;, latest solution is &lt;a href=&#34;https://github.com/a-urth/daily-programmer/tree/master/20161124_intermediate&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So with regular task I came pretty quickly and there is really nothing special comparing with easy one.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(def wire-rules {:s0 {\w :s1, \r :s2}
+                 :s1 {\w :s2, \o :s3}
+                 :s2 {\b :s3, \r :s0}
+                 :s3 {\b :s3, \o :s4, \g :s5}
+                 :s4 {\g :exit}
+                 :s5 {\o :exit}})
+
+(defn end? [kw] (= kw :exit))
+
+(defn defuse
+  ([wires]
+   (defuse wires :s0))
+
+  ([[wire &amp;amp; others] cur-step]
+   (let [next-step ((wire-rules cur-step) wire)]
+     (condp = next-step
+       :exit true
+       nil false
+       (recur others next-step)))))
+
+(defn defuse-bomb [i wires]
+  (println
+   (if (defuse (map first (split-lines wires)))
+     (format &amp;quot;%s - Bomb defused&amp;quot; i)
+     (format &amp;quot;%s - Booom&amp;quot; i))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Rules are now represented is slightly different form, &lt;code&gt;defuse&lt;/code&gt; function as well, but  its all pretty straightforward. The only thing I changed is implemented &lt;code&gt;condp&lt;/code&gt; part in &lt;code&gt;defuse&lt;/code&gt; function (saw it in other solution on reddit). Previously I had &lt;code&gt;if-let&lt;/code&gt; and &lt;code&gt;if&lt;/code&gt; which was not so good looking in my opinion.&lt;/p&gt;
+
+&lt;p&gt;While first part was pretty easy, there is bonus one, which is an interesting one. I&amp;rsquo;ve spent some time on solution design and came up with recursive algorithm with backtracking which looks something like this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-clojure&#34;&gt;(defn wires-&amp;gt;map [wires]
+  (into {} (for [wire-row (split-lines wires)
+                 :let [[wire n] (split wire-row #&amp;quot; &amp;quot;)]]
+             [(first wire) (Integer. n)])))
+
+(defn no-wires-left? [wires-m] (every? zero? (vals wires-m)))
+
+(defn defusable?
+  ([wires-m]
+   (defusable? wires-m :s0))
+
+  ([wires-m step]
+   (if (end? step)  ; (1)
+     (no-wires-left? wires-m)  ; (2)
+     (loop [[[wire next-step] &amp;amp; other] (seq (wire-rules step))]  ; (3)
+       (if (nil? wire)
+         false
+         (let [wire-n (wires-m wire)]
+           (if (and
+                (not (zero? wire-n))  ; (4)
+                (defusable? (assoc wires-m wire (dec wire-n)) next-step))  ; (5)
+             true
+             (recur other))))))))
+
+(defn check-bomb [i wires]
+  (println
+   (if (defusable? (wires-&amp;gt;map wires))
+     (format &amp;quot;%s - Defusable&amp;quot; i)
+     (format &amp;quot;%s - Not defusable&amp;quot; i))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I have two helper functions - one for converting input to map with wire colors as keys and number of wires as values (&lt;code&gt;wires-&amp;gt;map&lt;/code&gt;), and second for checking if there are still some wires left after finding correct solution (&lt;code&gt;no-wires-left?&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;The thing I don&amp;rsquo;t like is how &lt;code&gt;defusable?&lt;/code&gt; function looks like. General idea behind it is to go through rules step by step and check if we have correct number of wires to perform defusal. We gonna recursively check each branch and if at some point we&amp;rsquo;ll find out that current branch is wrong we go back, which is backtracking part. Lets brake it in parts.
+First we check if its a last step (&lt;strong&gt;1&lt;/strong&gt;) and there are no wires left (&lt;strong&gt;2&lt;/strong&gt;) then this is correct path and bomb is defusable. If there are still some wires left in the end, then this path is wrong and if its not the end yet - check current step. Checking current step means go through all possible branches for it (&lt;strong&gt;3&lt;/strong&gt;) and check if we have enough wires to cut (&lt;strong&gt;4&lt;/strong&gt;) and path down this branch satisfies rules (&lt;strong&gt;5&lt;/strong&gt;). If both are true, then this path is correct, if not - check other ones.&lt;/p&gt;
+
+&lt;p&gt;Idea is pretty straightforward, implementation as well and it works as good as it can get. But i have a feeling that it could be written in better way, more idiomatic. I don&amp;rsquo;t like so much nesting and it looks like that recursive &lt;code&gt;loop&lt;/code&gt; can be changed with something more appropriate, but I have no clue with what exactly. I even asked for code review in clojure slack channel, and if I&amp;rsquo;ll be lucky enough to get some clues where I&amp;rsquo;ll do update of this solution.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Weekly feature - second and last for November 2016</title>

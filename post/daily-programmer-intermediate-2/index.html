@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily programmer - saturday defusal | Just Another Developer&#39;s Blog</title>
+<link rel="stylesheet" href="https://a-urth.github.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://a-urth.github.io/"><h1 class="title is-4">Just Another Developer&#39;s Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/a-urth">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/a_ursulenko">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 27, 2016</h2>
+    <h1 class="title">Daily programmer - saturday defusal</h1>
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/code">code</a>
+    
+        <a class="button is-link" href="/tags/programming">programming</a>
+    
+        <a class="button is-link" href="/tags/dev">dev</a>
+    
+        <a class="button is-link" href="/tags/algorithms">algorithms</a>
+    
+        <a class="button is-link" href="/tags/clojure">clojure</a>
+    
+</div>
+
+    
+    <div class="content">
+      <p>Right of the way gonna say that doing it on Saturday just because didn&rsquo;t feel like doing it at all. This task is based on Mondays one and consists of two parts. Task is <a href="https://www.reddit.com/r/dailyprogrammer/comments/5emuuy/20161124_challenge_293_intermediate_defusing_the/">here</a>, latest solution is <a href="https://github.com/a-urth/daily-programmer/tree/master/20161124_intermediate">here</a>.</p>
+
+<p>So with regular task I came pretty quickly and there is really nothing special comparing with easy one.</p>
+
+<pre><code class="language-clojure">(def wire-rules {:s0 {\w :s1, \r :s2}
+                 :s1 {\w :s2, \o :s3}
+                 :s2 {\b :s3, \r :s0}
+                 :s3 {\b :s3, \o :s4, \g :s5}
+                 :s4 {\g :exit}
+                 :s5 {\o :exit}})
+
+(defn end? [kw] (= kw :exit))
+
+(defn defuse
+  ([wires]
+   (defuse wires :s0))
+
+  ([[wire &amp; others] cur-step]
+   (let [next-step ((wire-rules cur-step) wire)]
+     (condp = next-step
+       :exit true
+       nil false
+       (recur others next-step)))))
+
+(defn defuse-bomb [i wires]
+  (println
+   (if (defuse (map first (split-lines wires)))
+     (format &quot;%s - Bomb defused&quot; i)
+     (format &quot;%s - Booom&quot; i))))
+</code></pre>
+
+<p>Rules are now represented is slightly different form, <code>defuse</code> function as well, but  its all pretty straightforward. The only thing I changed is implemented <code>condp</code> part in <code>defuse</code> function (saw it in other solution on reddit). Previously I had <code>if-let</code> and <code>if</code> which was not so good looking in my opinion.</p>
+
+<p>While first part was pretty easy, there is bonus one, which is an interesting one. I&rsquo;ve spent some time on solution design and came up with recursive algorithm with backtracking which looks something like this.</p>
+
+<pre><code class="language-clojure">(defn wires-&gt;map [wires]
+  (into {} (for [wire-row (split-lines wires)
+                 :let [[wire n] (split wire-row #&quot; &quot;)]]
+             [(first wire) (Integer. n)])))
+
+(defn no-wires-left? [wires-m] (every? zero? (vals wires-m)))
+
+(defn defusable?
+  ([wires-m]
+   (defusable? wires-m :s0))
+
+  ([wires-m step]
+   (if (end? step)  ; (1)
+     (no-wires-left? wires-m)  ; (2)
+     (loop [[[wire next-step] &amp; other] (seq (wire-rules step))]  ; (3)
+       (if (nil? wire)
+         false
+         (let [wire-n (wires-m wire)]
+           (if (and
+                (not (zero? wire-n))  ; (4)
+                (defusable? (assoc wires-m wire (dec wire-n)) next-step))  ; (5)
+             true
+             (recur other))))))))
+
+(defn check-bomb [i wires]
+  (println
+   (if (defusable? (wires-&gt;map wires))
+     (format &quot;%s - Defusable&quot; i)
+     (format &quot;%s - Not defusable&quot; i))))
+</code></pre>
+
+<p>So I have two helper functions - one for converting input to map with wire colors as keys and number of wires as values (<code>wires-&gt;map</code>), and second for checking if there are still some wires left after finding correct solution (<code>no-wires-left?</code>).</p>
+
+<p>The thing I don&rsquo;t like is how <code>defusable?</code> function looks like. General idea behind it is to go through rules step by step and check if we have correct number of wires to perform defusal. We gonna recursively check each branch and if at some point we&rsquo;ll find out that current branch is wrong we go back, which is backtracking part. Lets brake it in parts.
+First we check if its a last step (<strong>1</strong>) and there are no wires left (<strong>2</strong>) then this is correct path and bomb is defusable. If there are still some wires left in the end, then this path is wrong and if its not the end yet - check current step. Checking current step means go through all possible branches for it (<strong>3</strong>) and check if we have enough wires to cut (<strong>4</strong>) and path down this branch satisfies rules (<strong>5</strong>). If both are true, then this path is correct, if not - check other ones.</p>
+
+<p>Idea is pretty straightforward, implementation as well and it works as good as it can get. But i have a feeling that it could be written in better way, more idiomatic. I don&rsquo;t like so much nesting and it looks like that recursive <code>loop</code> can be changed with something more appropriate, but I have no clue with what exactly. I even asked for code review in clojure slack channel, and if I&rsquo;ll be lucky enough to get some clues where I&rsquo;ll do update of this solution.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'a-urth';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="/about">Andrii Ursulenko</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/python.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/clojure.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
