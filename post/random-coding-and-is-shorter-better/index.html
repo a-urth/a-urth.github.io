@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunday night random coding and some thoughts on better programming | Just Another Developer&#39;s Blog</title>
+<link rel="stylesheet" href="https://a-urth.github.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://a-urth.github.io/"><h1 class="title is-4">Just Another Developer&#39;s Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/a-urth">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/a_ursulenko">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 28, 2016</h2>
+    <h1 class="title">Sunday night random coding and some thoughts on better programming</h1>
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/programming">programming</a>
+    
+        <a class="button is-link" href="/tags/dev">dev</a>
+    
+        <a class="button is-link" href="/tags/clojure">clojure</a>
+    
+        <a class="button is-link" href="/tags/python">python</a>
+    
+</div>
+
+    
+    <div class="content">
+      <p>So it was Sunday late evening and I&rsquo;m, almost sleeping, randomly cruising through reddit, came to this <a href="https://www.new2code.com/2016/11/proof-you-can-become-a-better-programmer/">article</a>. In which author shares his experience of becoming &ldquo;better programmer&rdquo;, and I found it some what controversial for me. Generally he takes two common programming problems and compares how he did them in the start of his programming career and now. This is cool short reading itself and 100% educational, but in my opinion for another reason than author thought.</p>
+
+<p>First one is great because it utilizes language features at its best. I&rsquo;m not sure that its much more readable, but definitely shorter and, let me say, smarter way.</p>
+
+<p>But second one is not so obvious and even controversial in my opinion, but let me explain myself. First of all this kind of programming task is quite common and I even wrote solutions by myself in <code>clojure</code>, both for problem author describes and more common one, as mention in comments, counting for consecutive characters, here they are.</p>
+
+<p>Characters counting and shortening</p>
+
+<pre><code class="language-clojure">(defn chars-count [s]
+  (fn reducer [acc c]
+    (let [n (acc c)] (assoc acc c (if n (inc n) 1))))
+  (clojure.string/join (for [[c n] (reduce reducer {} s)] (str c n))))
+</code></pre>
+
+<p><strong>Consecutive</strong>  characters counting and shortening</p>
+
+<pre><code class="language-clojure">(defn compact [s]
+  (loop [[char &amp; rest] s
+         last-char &quot;&quot;
+         acc &quot;&quot;
+         count 1]
+    (if (nil? char)
+      (str acc last-char count)
+      (if (= last-char char)
+        (recur rest char acc (inc count))
+        (let [res (if (= last-char &quot;&quot;) acc (str acc last-char count))]
+          (recur rest char res 1))))))
+</code></pre>
+
+<p>As usual I&rsquo;m not even trying to say that these are top notch solutions and there is no way to do it better, its just my version written being sleepy on Sunday late evening.</p>
+
+<p>Now, why I don&rsquo;t like authors solution to second problem and why I&rsquo;m thinking that its bad way to code. Yes, it again utilizes language features and is much shorter, but by what cost? Its absolutely not efficient and complexity of such solution is nowhere close to required one. Its pointed in comments couple of times and on <a href="https://www.reddit.com/r/programming/comments/5f5rzg/proof_you_can_become_a_better_programmer_new_to/">reddit</a> thread there link to this article was posted. And the thing I disagree with the most is the point that such way is &ldquo;better&rdquo;, when its actually not. Its shorter/cooler/smarter/you name it but not more efficient or even readable, actually in terms of efficiency its even worse than first one. Doing this way shows that You actually doesn&rsquo;t care about what and how Your code do, but care about how it looks instead. And author says that he would do it in other (correct) way if it would be some kind of interview with execution time or any other limitations which he cannot exceed. But the thing is that in real life You never now what are these limitations and when You&rsquo;ll exceed them. You write solution like that and Your application performs super good with no load and as customers start to visit Your web page (for example) CPUs in Your servers are melting because while You&rsquo;ve been coding Your neat solution You didn&rsquo;t actually think that O(n) is way better than O(N^2) and this code will fuck up Your whole application.</p>
+
+<p>And arguments like &ldquo;in such little problem real efficiency doesn&rsquo;t matter, its just an example&rdquo; are doing everything even worser. Because by doing such tasks You gaining programming habits and skills, and if You don&rsquo;t care about how Your code performs than You&rsquo;ll never be &ldquo;better programmer&rdquo;.</p>
+
+<p>This case reminded me <a href="https://www.codewars.com/kata/most-frequent-elements/solutions/python">this task</a> which is almost the same and even most voted solution is similar.</p>
+
+<pre><code class="language-python">def find_most_frequent(l):
+    return set(x for x in set(l) if l.count(x) == max([l.count(y) for y in l]))
+</code></pre>
+
+<p>Its just ridiculous how this thing is slow on bigger inputs and no wonder because its O(N^3) since <code>count</code> is O(N) and its done for each element of the input list on each iteration&hellip; This is actually great example of how You should <strong>NOT</strong> write code. You can compare it with other solutions on that page which utilize regular python&rsquo;s <code>dict</code> and even better ones with <code>Counter</code> which are actually smart and pythonic in my opinion.</p>
+
+<p>So, all I wanted to say is that shorter solutions are not always &ldquo;better&rdquo; or even more readable ones. Never compromising performance of Your code and still finding way to make it look great, understanding and realizing <strong>how</strong> Your code works and <strong>what</strong> it actually does on each step - this is true meaning of being &ldquo;better programmer&rdquo; in my opinion.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'a-urth';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="/about">Andrii Ursulenko</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/python.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/clojure.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
