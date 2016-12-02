@@ -10,6 +10,57 @@
     <atom:link href="https://a-urth.github.io/tags/clojure/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Weekly feature - first for December 2016</title>
+      <link>https://a-urth.github.io/post/weekly-feature-201612-1/</link>
+      <pubDate>Fri, 02 Dec 2016 14:13:09 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/weekly-feature-201612-1/</guid>
+      <description>
+
+&lt;p&gt;Another weekly feature edition. Couple of interesting videos this time!&lt;/p&gt;
+
+&lt;h4 id=&#34;articles-on-software-development-stuff&#34;&gt;Articles on software development stuff&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;One of the most popular python packages &amp;ldquo;requests&amp;rdquo; shipped big changes which break backward compatibility and why its like that. [&lt;a href=&#34;https://lukasa.co.uk/2016/11/Five_Whys_Requests_212/&#34;&gt;https://lukasa.co.uk/2016/11/Five_Whys_Requests_212/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Pythonic ways to avoid using for loops and making your code better. [&lt;a href=&#34;https://medium.com/python-pandemonium/never-write-for-loops-again-91a5a4c84baf#.b7hthkn2a&#34;&gt;https://medium.com/python-pandemonium/never-write-for-loops-again-91a5a4c84baf#.b7hthkn2a&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;A lot of great materials about interview questions and problems. Really good stuff to prepare yourself or just to find some new challenge. [&lt;a href=&#34;https://github.com/MaximAbramchuck/awesome-interview-questions&#34;&gt;https://github.com/MaximAbramchuck/awesome-interview-questions&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Advent of code 2016 is here! Interesting problems, really cool challenge. [&lt;a href=&#34;http://adventofcode.com/&#34;&gt;http://adventofcode.com/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Comparison of different &lt;code&gt;clojure&lt;/code&gt; polymorphism approaches in terms of performance and applicability. [&lt;a href=&#34;http://insideclojure.org/2015/04/27/poly-perf/&#34;&gt;http://insideclojure.org/2015/04/27/poly-perf/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Clojure&lt;/code&gt; print functions - why there are so many of them and whats the purpose of each. [&lt;a href=&#34;http://blog.klipse.tech//clojure/2016/11/24/stringify-clojure.html&#34;&gt;http://blog.klipse.tech//clojure/2016/11/24/stringify-clojure.html&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Maybe the best GUI for git in terms of functionality. [&lt;a href=&#34;http://gitup.co&#34;&gt;http://gitup.co&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Cool note about macro in &lt;code&gt;c&lt;/code&gt;. [&lt;a href=&#34;http://www.pixelstech.net/article/1390482950-do-%7B-%7D-while-%280%29-in-macros&#34;&gt;http://www.pixelstech.net/article/1390482950-do-%7B-%7D-while-%280%29-in-macros&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Again &lt;code&gt;c&lt;/code&gt;, comparing in to punk-rock music. It may sound strange but the article itself is very interesting, it traces &lt;code&gt;c&lt;/code&gt; origin and development. [&lt;a href=&#34;https://pragprog.com/magazines/2011-03/punk-rock-languages&#34;&gt;https://pragprog.com/magazines/2011-03/punk-rock-languages&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Cuckoo filters for counting unique values comparing to bloom filters. [&lt;a href=&#34;http://blog.fastforwardlabs.com/post/153566952648/probabilistic-data-structure-showdown-cuckoo&#34;&gt;http://blog.fastforwardlabs.com/post/153566952648/probabilistic-data-structure-showdown-cuckoo&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Brief and on-point note about key responsibilities and qualities of a good architect. [&lt;a href=&#34;https://www.thekua.com/atwork/2016/11/the-well-rounded-architect/&#34;&gt;https://www.thekua.com/atwork/2016/11/the-well-rounded-architect/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Interesting and valid in my opinion point of view on naming things (different sort of handlers especially) with examples in &lt;code&gt;javascript&lt;/code&gt;. And interestingly enough that I had same thoughts on this topic, few days ago. [&lt;a href=&#34;http://nikas.praninskas.com/javascript/2016/11/28/naming-things-handlers/&#34;&gt;http://nikas.praninskas.com/javascript/2016/11/28/naming-things-handlers/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Great real life stories about software development mistakes. Definitely worth attention. [&lt;a href=&#34;https://softwareclown.com&#34;&gt;https://softwareclown.com&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Feature factory, what is it and what are signs that You are in it. [&lt;a href=&#34;https://hackernoon.com/12-signs-youre-working-in-a-feature-factory-44a5b938d6a2#.jyt9u529z&#34;&gt;https://hackernoon.com/12-signs-youre-working-in-a-feature-factory-44a5b938d6a2#.jyt9u529z&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Quite interesting reading on guy&amp;rsquo;s experience creating &lt;code&gt;ios&lt;/code&gt; game with &lt;code&gt;phonegap&lt;/code&gt; and why its not that good as you can expect. [&lt;a href=&#34;https://bokstuff.com/i-made-an-iphone-game-with-phonegap-and-ill-never-do-it-again/&#34;&gt;https://bokstuff.com/i-made-an-iphone-game-with-phonegap-and-ill-never-do-it-again/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;I wrote whole post only about this particular article which I found last weekend, so You can find my opinion/angry-rant about that &lt;a href=&#34;https://a-urth.github.io/post/random-coding-and-is-shorter-better/&#34;&gt;here&lt;/a&gt; [&lt;a href=&#34;https://www.new2code.com/2016/11/proof-you-can-become-a-better-programmer/&#34;&gt;https://www.new2code.com/2016/11/proof-you-can-become-a-better-programmer/&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;articles-on-other-interesting-topics&#34;&gt;Articles on other interesting topics&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interesting reading about ambitious space programs which were never implemented in real life. [&lt;a href=&#34;https://geektimes.ru/company/mailru/blog/282874/&#34;&gt;https://geektimes.ru/company/mailru/blog/282874/&lt;/a&gt;] &lt;strong&gt;RUS&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Very interesting article about easter eggs in GTA and what it takes to find them. [&lt;a href=&#34;http://arstechnica.com/gaming/2016/11/easter-eggs-evolved-why-gamers-spent-3-years-plus-studying-gtavs-mount-chiliad/&#34;&gt;http://arstechnica.com/gaming/2016/11/easter-eggs-evolved-why-gamers-spent-3-years-plus-studying-gtavs-mount-chiliad/&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Rapid fire Q&amp;amp;A about artificial intelligence. If you had some questions, than there is high chance that You&amp;rsquo;ll find answers here. [&lt;a href=&#34;http://people.eecs.berkeley.edu/~russell/temp/q-and-a.html&#34;&gt;http://people.eecs.berkeley.edu/~russell/temp/q-and-a.html&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;videos&#34;&gt;Videos&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interesting video especially for non familiar with web on how passwords are stored. [&lt;a href=&#34;https://www.youtube.com/watch?v=yoMOAIzBSpY&#34;&gt;https://www.youtube.com/watch?v=yoMOAIzBSpY&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Leap second - what is it and why its so hard to handle it. [&lt;a href=&#34;https://www.youtube.com/watch?v=Uqjg8Kk1HXo&#34;&gt;https://www.youtube.com/watch?v=Uqjg8Kk1HXo&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Code girl trolling, nuff said. Simply great talk. [&lt;a href=&#34;https://www.youtube.com/watch?v=wewAC5X_CZ8&#34;&gt;https://www.youtube.com/watch?v=wewAC5X_CZ8&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Very famous Rich Hickie&amp;rsquo;s talk on transducers in &lt;code&gt;clojure&lt;/code&gt;. [&lt;a href=&#34;https://www.youtube.com/watch?v=6mTbuzafcII&#34;&gt;https://www.youtube.com/watch?v=6mTbuzafcII&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;Cool video on sorting algorithms for non developers. [&lt;a href=&#34;https://www.youtube.com/watch?v=WaNLJf8xzC4&#34;&gt;https://www.youtube.com/watch?v=WaNLJf8xzC4&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Sunday night random coding and some thoughts on better programming</title>
       <link>https://a-urth.github.io/post/random-coding-and-is-shorter-better/</link>
       <pubDate>Mon, 28 Nov 2016 12:32:27 +0200</pubDate>
