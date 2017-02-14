@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Post-rsses on Just Another Developer&#39;s Blog</title>
+    <title>Post-rsses on Occasionally writing</title>
     <link>https://a-urth.github.io/post/index.xml</link>
-    <description>Recent content in Post-rsses on Just Another Developer&#39;s Blog</description>
+    <description>Recent content in Post-rsses on Occasionally writing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://a-urth.github.io/about&#34;&gt;Andrii Ursulenko&lt;/a&gt; 2016</copyright>
-    <lastBuildDate>Fri, 02 Dec 2016 14:13:09 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 14 Feb 2017 08:05:30 +0200</lastBuildDate>
     <atom:link href="https://a-urth.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Status update</title>
+      <link>https://a-urth.github.io/post/status-update/</link>
+      <pubDate>Tue, 14 Feb 2017 08:05:30 +0200</pubDate>
+      
+      <guid>https://a-urth.github.io/post/status-update/</guid>
+      <description>
+
+&lt;h5 id=&#34;we-back&#34;&gt;We back!&lt;/h5&gt;
+
+&lt;p&gt;So, yeah, its been a while since I wrote something and there are reasons for that. But anyway I wan&amp;rsquo;t to continue blogging somewhat regularly (one-two times a week) and here is my status update on what happened for last&amp;hellip; let me check&amp;hellip; two with a half month, damn.&lt;/p&gt;
+
+&lt;h5 id=&#34;what-happened&#34;&gt;What happened?&lt;/h5&gt;
+
+&lt;p&gt;&lt;em&gt;i.e. why I was dry for such long period of time&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I quit my last job because it was horrible and I don&amp;rsquo;t even want to start about that (maybe someday). And it was (job, not the quitting) actually main reason why I started to write something here. Also I had plenty of free time and I could allow to myself to write a lot of non work related code and read a lot about programming/development during working hours.&lt;/li&gt;
+&lt;li&gt;And of course I found new job which is much more fun and seems to be pretty cool place to work. And that means that I have now much less time and
+and not so much motivation to write/read/code something in my spare time.&lt;/li&gt;
+&lt;li&gt;Also we bought a car and it was pretty stressful period of time during first month, because its Kyiv, Ukraine with all pain in ass driving and parking here. But everything is good right now, so it won&amp;rsquo;t be a trouble anymore. At least I hope so.&lt;/li&gt;
+&lt;li&gt;Also starting from december I renewed my trainings in full speed, which means, again, that I have less time and energy for all the coding stuff.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;whats-next&#34;&gt;Whats next?&lt;/h5&gt;
+
+&lt;p&gt;&lt;em&gt;i.e. plans for nearest future&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Revisit &lt;code&gt;go&lt;/code&gt;, write some code, form an opinion about it again and decide maybe to switch to it as a main language, because I&amp;rsquo;m pretty sick with python for some time already. I think I&amp;rsquo;d better write about that in another post.&lt;/li&gt;
+&lt;li&gt;I&amp;rsquo;m gonna do little online course on &lt;code&gt;erlang&lt;/code&gt; (it starts in a week and 3 weeks long) and learn a little bit about that, just to be somewhat familiar with it, which I wanted to do for quiet some time.&lt;/li&gt;
+&lt;li&gt;Also starting from 20th of March I&amp;rsquo;ll participate offline course on algorithms and datastructures with &lt;code&gt;lisp&lt;/code&gt; (yeah, I mean it), which promises to be awesome and hard and motivating and inspiring and tons of other things. I have big plans for that course and I&amp;rsquo;ll try my best and even to write something about that as well here.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clojure&lt;/code&gt;, yes, what about that? With my new job I had a lot of python3 with async stuff thats why I had to step aside from &lt;code&gt;clojure&lt;/code&gt; for a while. Also I&amp;rsquo;ve had some serious thoughts on if I should seriously consider it as my &amp;ldquo;next big thing&amp;rdquo; or better stick with more &amp;ldquo;simpler&amp;rdquo; languages as &lt;code&gt;go&lt;/code&gt; for example. I have some reasons for that, which I describe in post why I&amp;rsquo;m not comfy with python anymore. But anyway, during this &lt;code&gt;lisp&lt;/code&gt; course I want to decide for myself if I&amp;rsquo;m ok with lisp dialects and functional languages in general and if I should stick with them for future. We&amp;rsquo;ll see.&lt;/li&gt;
+&lt;li&gt;Comeback to regular non work related coding (again, at least one-two times per week) in any form - daily programmer, exercism, codewars, whatever. In any non python language - clojure, go, lisp (?), erlang (?) we&amp;rsquo;ll see.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;this-blog&#34;&gt;This Blog&lt;/h5&gt;
+
+&lt;p&gt;&lt;em&gt;i.e. what I&amp;rsquo;ll be writing about next and what will be the format&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Weekly feature stuff is good as gone, simply because it was an experiment which ended and it was actually successful. By that I mean that I learned that I was reading tons of stuff just because I was bored at work and now its not like that. I&amp;rsquo;m reading much less - somewhere about 4-5 articles per week, so I see no reason to write separate post about that. I&amp;rsquo;m planning to write about only very interesting stuff which inspires me and makes me want to try something and write about that. Simple as it gets.&lt;/li&gt;
+&lt;li&gt;Coding/programming stuff will comeback, but I don&amp;rsquo;t know yet in what form and language.&lt;/li&gt;
+&lt;li&gt;As I said previously, main goal is to start writing again regularly - one-two times per week and it doesn&amp;rsquo;t matter whats the topic will be - programming problems, interesting development readings or some experiments.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I think thats for today, and see You next time. I hope it will be soon.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Weekly feature - first for December 2016</title>

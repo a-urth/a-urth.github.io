@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Just Another Developer&#39;s Blog</title>
+    <title>Occasionally writing</title>
     <link>https://a-urth.github.io/tags/js/index.xml</link>
-    <description>Recent content on Just Another Developer&#39;s Blog</description>
+    <description>Recent content on Occasionally writing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://a-urth.github.io/about&#34;&gt;Andrii Ursulenko&lt;/a&gt; 2016</copyright>
